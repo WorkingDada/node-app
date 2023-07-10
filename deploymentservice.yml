@@ -24,7 +24,7 @@ spec:
 ---
 
 apiVersion: v1
-kind: nodepo
+kind: Service
 metadata:
   name: nodeapp-service
 spec:
