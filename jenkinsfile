@@ -1,0 +1,40 @@
+pipeline {
+  environment {
+    dockerimagename = ""
+    dockerImage = ""
+  }
+  agent any
+
+  stages {
+    stage('Checkout Source') {
+      git ''
+    }
+
+    stage('Build Image') {
+      steps{
+        script {
+          dockerImage = docker.build insert_imagename
+        }
+      }
+    }
+    stage('Pushing Image') {
+      environment {
+        registryCredential = ''
+      }
+      steps {
+        script {
+          docker.withRegistry('link_of_registry',registryCredential) {
+            dockerImage.push("lastest")
+          }
+        }
+      }
+    }
+    stage('Deploying App to Kubernetes') {
+      steps {
+        script {
+          kubernetesDeploy(configs: "deploymentservices.yml", kubeconfigId: "kubernetes")
+        }
+      }
+    }
+  }
+}
