@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: pttzx.nodeapp:latest
+        image: pttzx/nodeapp:latest
         ports:
         - containerPort: 3000
         
@@ -24,13 +24,13 @@ spec:
 ---
 
 apiVersion: v1
-kind: Service
+kind: nodepo
 metadata:
   name: nodeapp-service
 spec:
+  type: nodePort
   selector:
     app: nodeapp 
-  type: LoadBalancer
   ports:
   - protocol: TCP
     port: 5000
