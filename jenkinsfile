@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    dockerimagename = ""
+    dockerimagename = "pttzx/nodeapp"
     dockerImage = ""
   }
   agent any
