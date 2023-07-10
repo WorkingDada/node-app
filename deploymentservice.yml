@@ -28,7 +28,7 @@ kind: nodepo
 metadata:
   name: nodeapp-service
 spec:
-  type: nodePort
+  type: NodePort
   selector:
     app: nodeapp 
   ports:
