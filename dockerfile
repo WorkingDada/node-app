@@ -1,7 +1,5 @@
 FROM node:lastest
 
-WORKDIR /usr/src/app
-
 COPY package.json ./
 
 RUN nmp install
