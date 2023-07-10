@@ -2,7 +2,7 @@ FROM node:18-alpine
 
 WORKDIR /Users/pattaponvichanukroh/Desktop/node-app
 
-RUN nmp install
+RUN npm install
 
 COPY . .
 
