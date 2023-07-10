@@ -1,6 +1,4 @@
-FROM node:18-alpine
-
-WORKDIR /Users/pattaponvichanukroh/Desktop/node-app
+FROM node:latest
 
 RUN npm install
 
