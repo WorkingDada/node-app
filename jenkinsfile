@@ -6,24 +6,27 @@ pipeline {
   agent any
 
   stages {
+
     stage('Checkout Source') {
-      git ''
+      steps {
+        git 'https://github.com/WorkingDada/node-app.git'
+      }
     }
 
     stage('Build Image') {
       steps{
         script {
-          dockerImage = docker.build insert_imagename
+          dockerImage = docker.build dockerimagename
         }
       }
     }
     stage('Pushing Image') {
       environment {
-        registryCredential = ''
+        registryCredential = 'docker-credential'
       }
       steps {
         script {
-          docker.withRegistry('link_of_registry',registryCredential) {
+          docker.withRegistry('https://registry.hub.docker.com',registryCredential) {
             dockerImage.push("lastest")
           }
         }
