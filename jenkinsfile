@@ -1,11 +1,22 @@
 pipeline {
+  
   environment {
     dockerimagename = "pttzx/nodeapp"
     dockerImage = ""
   }
   agent any
   stages {
-
+    stage('Parameters'){
+      steps {
+        properties([parameters([
+        choice(name: 'AWSAccountName', choices: ['aella-nonbank-nonprod','aella-bank-nonprod'], description: 'AWS Account Name')
+        , string(name: 'CompanyName', description: '', defaultValue: '', trim: true)
+        , string(name: 'ProjectName', description: '', defaultValue: '', trim: true)
+        , string(name: 'ImagePackageName', description: 'This is same as microservice name<br>Ex1. all - For all ms <br>Ex2. golang-poc - For ms golang-poc <br>Ex3. bat-spring1,golang-poc,kotlin2 - For list of ms', trim: true),
+    ])
+])
+      }
+    }
     stage('Checkout Source') {
       steps {
         git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'
