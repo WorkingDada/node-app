@@ -2,10 +2,10 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nodeapp-deployment
+  namespace: techx-trainee-dev
   labels:
     app: nodeapp
 spec:
-  namespace: techx-trainee-dev
   replicas: 1
   selector:
     matchLabels:
