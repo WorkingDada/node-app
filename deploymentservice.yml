@@ -1,3 +1,16 @@
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dev.properties
+  namespace: techx-trainee-dev
+data:
+  NODE_PORT: 3000
+  SERVER_NAME: nodeapp-dev
+  DB_URL: rds-server-dev.com
+  
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,24 +30,12 @@ spec:
     spec:
       containers:
       - name: nodeserver
-        image: registry.hub.docker.com/pttzx/nodeapp:latest
+        image: registry.hub.docker.com/pttzx/nodeapp
         ports:
         - containerPort: 3000
       imagePullSecrets:
        - name: regcred
         
----
-
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: dev.properties
-  namespace: techx-trainee-dev
-data:
-  NODE_PORT: 3000
-  SERVER_NAME: nodeapp-dev
-  DB_URL: rds-server-dev.com
-  
 ---
 
 apiVersion: v1
@@ -51,3 +52,4 @@ spec:
     port: 3000
     targetPort: 3000
     nodePort: 31110
+
