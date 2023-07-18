@@ -31,6 +31,17 @@ pipeline {
         }
       }
     }
+    stage('Updating .yaml') {
+      steps {
+        script{
+          def fileContentsTemplate = "${WORKSPACE}/deploymentservice.yml"
+          String fileContents = readFile(fileContentsTemplate)
+          def fileContents = fileContents.replaceAll("##VERSION##","1.0.0-{build_number}")
+          sh "rm -f ${fileContentsTemplate}"
+          writeFile file: fileContentsTemplate, text: fileContents
+        }
+      }
+    }
     stage('Deploying App to Kubernetes') {
       steps {
         script {
