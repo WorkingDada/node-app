@@ -48,11 +48,11 @@ pipeline {
           def dev_namespace = techx-trainee-dev
           def staging_namespace = techx-trainee-staging
           def prod_namespace = techx-trainee-prod
-          sh "
+          sh ""
             kubectl create namespace $dev_namespace
             kubectl create namespace $staging_namespace
             kubectl create namespace $prod_namespace
-          "
+          ""
         }
       }
     }
