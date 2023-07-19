@@ -73,7 +73,7 @@ pipeline {
       steps {
         script {
           echo "--- Deploying ---"
-          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubeconfig")
+          kubernetesDeploy(configs: "deploymentservice.yml", kubeconfigId: "kubernetes")
         }
       }
     }
