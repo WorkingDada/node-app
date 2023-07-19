@@ -42,7 +42,7 @@ pipeline {
         }
       }
     }
-    stage('Creaing namespaces') {
+    stage('Creating namespaces') {
       steps {
         script{
           def dev_namespace = "techx-trainee-dev"
