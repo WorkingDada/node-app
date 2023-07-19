@@ -42,6 +42,20 @@ pipeline {
         }
       }
     }
+    stage('Creaing namespaces') {
+      steps {
+        script{
+          def dev_namespace = techx-trainee-dev
+          def staging_namespace = techx-trainee-staging
+          def prod_namespace = techx-trainee-prod
+          sh "
+            kubectl create namespace $dev_namespace
+            kubectl create namespace $staging_namespace
+            kubectl create namespace $prod_namespace
+          "
+        }
+      }
+    }
     stage('Deploying App to Kubernetes') {
       steps {
         script {
