@@ -52,7 +52,7 @@ pipeline {
       }
     }
 
-    stage('Checkout Source') {
+    stage('Checkout Source 2') {
       steps {
         echo "--- Checkout Source ---"
         git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'  
@@ -83,7 +83,7 @@ pipeline {
     //     }
     //   }
     // }
-    
+
     stage('Deploying App to Kubernetes') {
       steps {
         script {
