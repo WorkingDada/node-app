@@ -26,8 +26,8 @@ pipeline {
     }
 
     stage('Download Configmap'){
-      echo "--- Downloading Configmap ---"
       steps{
+        echo "--- Downloading Configmap ---"
         script {
           sh "apt install wget"
           sh '''
