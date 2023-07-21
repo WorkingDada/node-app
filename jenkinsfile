@@ -18,11 +18,12 @@ pipeline {
 
   // STAGES
   stages {
+
     stage('Checkout Source') {
 
       steps {
         echo "--- Checkout Source ---"
-        git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'
+        git branch: 'main', url: 'https://github.com/WorkingDada/techx-trainee-app-config.git'  
       }
     }
 
@@ -43,6 +44,21 @@ pipeline {
       }
     }
 
+    stage('Applying config') {
+      steps {
+        script {
+          sh "kubectl create configmap dev_config  --from-file=./dev.properties"
+        }
+      }
+    }
+
+    stage('Checkout Source') {
+      steps {
+        echo "--- Checkout Source ---"
+        git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'  
+      }
+    }
+
     stage('Updating .yaml') {
       steps {
         script{
@@ -57,7 +73,9 @@ pipeline {
         }
       }
     }
-    
+    stage('Checkout Source GIT') {
+
+    }
     stage('Creating namespaces') {
       steps {
         script{
