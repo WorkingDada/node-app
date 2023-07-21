@@ -29,7 +29,7 @@ pipeline {
       steps{
         script {
           sh "apt install wget"
-          sh "wget https://github.com/WorkingDada/techx-trainee-app-config.git/dev.properties -O node-app"
+          sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
         }
       }
     }
