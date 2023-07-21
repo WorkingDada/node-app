@@ -25,10 +25,19 @@ pipeline {
       }
     }
 
-    stage('Downloading Configmap'){
+    stage('Download Configmap'){
+      echo "--- Downloading Configmap ---"
       steps{
         script {
           sh "apt install wget"
+          sh '''
+            File = dev.properties
+            if [-f "$File"]; then
+              echo "$File Exists. Deleteing ..."
+              rm "$File"
+            else 
+              echo "$File does not exists. Nothing to delete."
+          '''
           sh "[-f dev.properties] && rm dev.properties"
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
           withCredentials([kubeconfigFile(credentialsId: 'config', variable: 'KUBECONFIG')]) {
