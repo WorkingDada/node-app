@@ -28,11 +28,12 @@ pipeline {
     stage('Downloading Configmap'){
       steps{
         script {
+          sh "apt install wget"
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config.git/dev.properties -O node-app"
         }
       }
     }
-    
+
     stage('Build and Push Image') {
       environment {
         registryCredential = 'docker-credential'
