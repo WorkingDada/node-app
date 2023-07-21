@@ -29,7 +29,8 @@ pipeline {
       steps{
         script {
           sh "apt install wget"
-          sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
+          sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties -O node-app/configmap"
+          sh "kubectl create configmap dev-config --from-file=node-app/configmap"
         }
       }
     }
