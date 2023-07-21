@@ -28,20 +28,18 @@ pipeline {
     stage('Download Configmap'){
       steps{
         echo "--- Downloading Configmap ---"
-        script {
-          sh "apt install wget"
-          sh '''
-            if [-f "dev.properties"]; then
-              echo "dev.properties Exists. Deleteing ..."
-              rm "dev.properties"
-            else 
-              echo "dev.properties does not exists. Nothing to delete."
-            fi
-          '''
+        // script {
+        //   sh "apt install wget"
+        //   sh '''
+        //     if [-f "dev.properties"]; then
+        //       echo "dev.properties Exists. Deleteing ..."
+        //       rm "dev.properties"
+        //     else 
+        //       echo "dev.properties does not exists. Nothing to delete."
+        //     fi
+        //   '''
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
-          withCredentials([kubeconfigFile(credentialsId: 'config', variable: 'KUBECONFIG')]) {
-            sh "kubectl create configmap dev-config --from-file=dev.properties" 
-          }
+          sh "kubectl create configmap dev-config --from-file=dev.properties" 
         }
       }
     }
