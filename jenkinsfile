@@ -29,8 +29,7 @@ pipeline {
       steps{
         script {
           sh "apt install wget"
-          sh "File=dev.properties"
-          sh "sh << stop if [-f "$File"] then rm File stop"
+          sh "[-f dev.properties] && rm dev.properties"
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
           withCredentials([kubeconfigFile(credentialsId: 'config', variable: 'KUBECONFIG')]) {
             sh "kubectl create configmap dev-config --from-file=dev.properties" 
