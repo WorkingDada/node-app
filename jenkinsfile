@@ -36,8 +36,8 @@ pipeline {
               rm "dev.properties"
             else 
               echo "dev.properties does not exists. Nothing to delete."
+            fi
           '''
-          sh "[-f dev.properties] && rm dev.properties"
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
           withCredentials([kubeconfigFile(credentialsId: 'config', variable: 'KUBECONFIG')]) {
             sh "kubectl create configmap dev-config --from-file=dev.properties" 
