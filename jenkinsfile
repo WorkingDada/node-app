@@ -18,30 +18,21 @@ pipeline {
 
   // STAGES
   stages {
-
     stage('Checkout Source') {
-
-      steps {
-        echo "--- Checkout Source ---"
-        git branch: 'main', url: 'https://github.com/WorkingDada/techx-trainee-app-config.git'  
-      }
-    }
-
-    stage('Applying config') {
-      steps {
-        script {
-          sh "kubectl create configmap dev_config  --from-file=./dev.properties"
-        }
-      }
-    }
-
-    stage('Checkout Source 2') {
       steps {
         echo "--- Checkout Source ---"
         git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'  
       }
     }
 
+    stage('Downloading Configmap'){
+      steps{
+        script {
+          sh "wget https://github.com/WorkingDada/techx-trainee-app-config.git/dev.properties -O node-app"
+        }
+      }
+    }
+    
     stage('Build and Push Image') {
       environment {
         registryCredential = 'docker-credential'
