@@ -31,12 +31,11 @@ pipeline {
         script {
           sh "apt install wget"
           sh '''
-            File = dev.properties
-            if [-f "$File"]; then
-              echo "$File Exists. Deleteing ..."
-              rm "$File"
+            if [-f "dev.properties"]; then
+              echo "dev.properties Exists. Deleteing ..."
+              rm "dev.properties"
             else 
-              echo "$File does not exists. Nothing to delete."
+              echo "dev.properties does not exists. Nothing to delete."
           '''
           sh "[-f dev.properties] && rm dev.properties"
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
