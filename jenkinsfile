@@ -27,6 +27,21 @@ pipeline {
       }
     }
 
+    stage('Applying config') {
+      steps {
+        script {
+          sh "kubectl create configmap dev_config  --from-file=./dev.properties"
+        }
+      }
+    }
+
+    stage('Checkout Source 2') {
+      steps {
+        echo "--- Checkout Source ---"
+        git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'  
+      }
+    }
+
     stage('Build and Push Image') {
       environment {
         registryCredential = 'docker-credential'
@@ -41,21 +56,6 @@ pipeline {
             dockerImage.push("1.0.0-${BUILD_NUMBER}")
           }
         }
-      }
-    }
-
-    stage('Applying config') {
-      steps {
-        script {
-          sh "kubectl create configmap dev_config  --from-file=./dev.properties"
-        }
-      }
-    }
-
-    stage('Checkout Source 2') {
-      steps {
-        echo "--- Checkout Source ---"
-        git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'  
       }
     }
 
