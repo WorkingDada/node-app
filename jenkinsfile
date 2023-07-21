@@ -73,20 +73,17 @@ pipeline {
         }
       }
     }
-    stage('Checkout Source GIT') {
-
-    }
-    stage('Creating namespaces') {
-      steps {
-        script{
-          echo "--- Checking namespaces ---"
-          createNamespace("techx-trainee-dev")
-          createNamespace("techx-trainee-staging")
-          createNamespace("techx-trainee-prod")
-        }
-      }
-    }
-
+    // stage('Creating namespaces') {
+    //   steps {
+    //     script{
+    //       echo "--- Checking namespaces ---"
+    //       createNamespace("techx-trainee-dev")
+    //       createNamespace("techx-trainee-staging")
+    //       createNamespace("techx-trainee-prod")
+    //     }
+    //   }
+    // }
+    
     stage('Deploying App to Kubernetes') {
       steps {
         script {
