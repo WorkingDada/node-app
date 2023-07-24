@@ -29,7 +29,7 @@ pipeline {
       steps{
         echo "--- Downloading Configmap ---"
         script {
-          // sh "apt install wget"
+          sh "apt install wget"
           // sh '''
           //   if [-f "dev.properties"]; then
           //     echo "dev.properties Exists. Deleteing ..."
@@ -38,8 +38,8 @@ pipeline {
           //     echo "dev.properties does not exists. Nothing to delete."
           //   fi
           // '''
-          // sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
-          kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://minikubeCA:58431') {
+          sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
+          kubeconfig(credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431') {
               // some block
           }
         }
