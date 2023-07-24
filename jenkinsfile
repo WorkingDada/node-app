@@ -93,7 +93,7 @@ pipeline {
         script {
           echo "--- Deploying ---"
           withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
-            sh 'kubectl apply -f ${WORKSPACE}/app-code/deploymentservice.yaml -n techx-trainee-dev'
+            sh 'kubectl apply -f ${WORKSPACE}/app-code/deploymentservice.yml -n techx-trainee-dev'
           }
         }
       }
