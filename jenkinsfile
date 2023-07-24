@@ -40,7 +40,7 @@ pipeline {
           // '''
           sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
           kubeconfig(credentialsId: 'kubernetes', serverUrl: 'https://127.0.0.1:58431') {
-            kubectl create configmap dev.properties --from-file=dev.properties
+            kubectl create configmap dev.properties --from-file=./dev.properties
           }
         }
       }
