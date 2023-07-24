@@ -39,7 +39,7 @@ pipeline {
           //   fi
           // '''
           // sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
-          kubeconfig(credentialsId: 'tdd-admin', serverUrl: 'https://192.168.49.2') {
+          kubeconfig(credentialsId: 'tdd-admin', serverUrl: 'https://192.168.49.2:8443') {
               // some block
           }
         }
