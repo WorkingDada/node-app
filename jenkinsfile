@@ -33,8 +33,9 @@ pipeline {
         script {
           dir("${WORKSPACE}/app-config") {
             sh "rm -f dev.properties || true"
-            git branch: "main", url: "https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
-
+            git branch: "main", url: "https://github.com/WorkingDada/techx-trainee-app-config.git"
+            sh "ls -la"
+            sh "pwd"
           }
           withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
             sh 'kubectl create configmap appconfig --from-file=${WORKSPACE}/app-config/dev.properties'
