@@ -98,5 +98,15 @@ pipeline {
         }
       }
     }
+
+    stage('Applying Configmap'){
+      steps {
+        script {
+          withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
+            sh 'kubectl apply configmap appconfig -n techx-trainee-dev'
+          }
+        }
+      }
+    }
   }
 }
