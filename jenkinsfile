@@ -39,15 +39,13 @@ pipeline {
       }
     }
 
-    stage('Download Configmap'){
+    stage('Download and Create Configmap'){
       steps{
         echo "--- Downloading Configmap ---"
         script {
           dir("${WORKSPACE}/app-config") {
             sh "rm -f dev.properties || true"
             git branch: "main", url: "https://github.com/WorkingDada/techx-trainee-app-config.git"
-            sh "ls -la"
-            sh "pwd"
           }
           withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
             sh 'kubectl create configmap appconfig --from-file=${WORKSPACE}/app-config/dev.properties -n techx-trainee-dev -o yaml --dry-run=client | kubectl apply -f -'
@@ -94,16 +92,6 @@ pipeline {
           echo "--- Deploying ---"
           withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
             sh 'kubectl apply -f ${WORKSPACE}/app-code/deploymentservice.yml -n techx-trainee-dev'
-          }
-        }
-      }
-    }
-
-    stage('Applying Configmap'){
-      steps {
-        script {
-          withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
-            sh 'kubectl apply configmap appconfig -n techx-trainee-dev'
           }
         }
       }
