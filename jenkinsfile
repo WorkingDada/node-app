@@ -21,7 +21,9 @@ pipeline {
     stage('Checkout Source') {
       steps {
         echo "--- Checkout Source ---"
-        git branch: 'main', url: 'https://github.com/WorkingDada/node-app.git'  
+        dir("${WORKSPACE}/app-code") {
+          git branch: "main", url: "https://github.com/WorkingDada/node-app.git"
+        }
       }
     }
 
@@ -29,18 +31,13 @@ pipeline {
       steps{
         echo "--- Downloading Configmap ---"
         script {
-          sh "apt install wget"
-          // sh '''
-          //   if [-f "dev.properties"]; then
-          //     echo "dev.properties Exists. Deleteing ..."
-          //     rm "dev.properties"
-          //   else 
-          //     echo "dev.properties does not exists. Nothing to delete."
-          //   fi
-          // '''
-          sh "wget https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
+          dir("${WORKSPACE}/app-config") {
+            sh "rm -f dev.properties || true"
+            git branch: "main", url: "https://github.com/WorkingDada/techx-trainee-app-config/blob/main/dev.properties"
+
+          }
           withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
-            sh 'kubectl get all'
+            sh 'kubectl create configmap appconfig --from-file=${WORKSPACE}/app-config/dev.properties'
           }
         }
       }
