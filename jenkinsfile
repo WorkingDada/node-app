@@ -34,7 +34,7 @@ pipeline {
           echo "--- Checking namespaces ---"
           createNamespace("techx-trainee-dev")
           createNamespace("techx-trainee-staging")
-          createNamespace("techx-trainee-prod")
+          createNamespace("techx-trainee-production")
         }
       }
     }
@@ -88,13 +88,12 @@ pipeline {
       }
     }
 
-
     stage('Deploying App to Kubernetes') {
       steps {
         script {
           echo "--- Deploying ---"
           withKubeConfig([credentialsId: 'KubeConfigCred', serverUrl: 'https://minikubeCA:58431']) {
-            sh 'kubectl apply -f ${WORKSPACE}/app-code/deploymentservices.yaml -n techx-trainee-dev'
+            sh 'kubectl apply -f ${WORKSPACE}/app-code/deploymentservice.yaml -n techx-trainee-dev'
           }
         }
       }
